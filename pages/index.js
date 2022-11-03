@@ -39,8 +39,31 @@ const DUMMY_MEETUPS = [
     }
 ];
 
-function HomePage() {
-    return  <Layout><MeetupList meetups={DUMMY_MEETUPS} /></Layout>
+function HomePage(props) {
+    return  <Layout><MeetupList meetups={props.meetups} /></Layout>
 }
+
+export async function getStaticProps() {
+    // fetch data/ read from file system etc
+    return {
+        props: {
+            meetups: DUMMY_MEETUPS
+        },
+        // incremetal static generation, making a regeneration for a perticular time interval set on the server making it up to date, replacing the old generated page
+        revalidate: 1
+    };
+}
+
+// this block of code only run on the server and differs with the above because it update when any incoming request are made 
+// export async function getServerSideProps(context) {
+//     const req = context.req;
+//     const res = context.res;
+     
+//     return {
+//         props: {
+//             meetups: DUMMY_MEETUPS
+//         }
+//     }
+// }
 
 export default HomePage;
