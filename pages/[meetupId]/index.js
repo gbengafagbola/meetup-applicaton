@@ -29,7 +29,7 @@ export async function getStaticPaths(){
     client.close()
      
     return {
-        fallback: false, // if another id is navigated to by the user and not in the list bellow (i.e m1, m2) it would generate a 404. but if true next would generate a page 4 it 
+        fallback: 'blocking', // if another id is navigated to by the user and not in the list bellow (i.e m1, m2) it would generate a 404. but if true next would generate a page 4 it 
         paths: meetups.map(meetup => ({params: {meetupId: meetup._id.toString()}}))    
     }
 }
